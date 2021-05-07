@@ -5,9 +5,9 @@ import { NotAuthorizedError } from '../errors/not-authorized-error';
 export const requireToken = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  let token = req.header("Authorization") || req.header("x-auth-token");
+  let token = req.header('Authorization') || req.header('x-auth-token');
 
   if (!token) {
     return new NotAuthorizedError();
@@ -20,8 +20,8 @@ export const requireToken = (
     next();
   } catch (error) {
     console.error(error);
-    throw new Error("Something went wrong");
+    throw new Error('Something went wrong');
   }
 
   next();
-}
+};

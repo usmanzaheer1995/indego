@@ -8,9 +8,11 @@
     "clean": "del-cli ./dist/*",
     "build": "npm run clean && tsc",
     "start": "tsc && node dist/index.js",
-    "start:dev": "tsnd --respawn src/index.ts"
+    "start:dev": "tsnd --respawn src/index.ts",
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
+    "@typescript-eslint/parser": "^4.22.1",
     "del-cli": "3.0.1",
     "dotenv": "9.0.0",
     "express": "4.17.1",
@@ -21,7 +23,11 @@
   },
   "devDependencies": {
     "@types/express": "4.17.11",
-    "@types/jsonwebtoken": "^8.5.1",
-    "ts-node-dev": "^1.1.6"
+    "@types/jsonwebtoken": "8.5.1",
+    "@typescript-eslint/eslint-plugin": "4.22.1",
+    "eslint": "7.25.0",
+    "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-plugin-import": "2.22.1",
+    "ts-node-dev": "1.1.6"
   }
 }

@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-import { join } from "path";
-import * as dotenv from "dotenv";
-dotenv.config({ path: join(__dirname, '..', '.env') });
+import { join } from 'path';
+import * as dotenv from 'dotenv';
 
 import app from './app';
+
+dotenv.config({ path: join(__dirname, '..', '.env') });
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,7 +19,7 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log('connected to mongodb!')
+    console.log('connected to mongodb!');
   } catch (err) {
     console.error(err);
   }
@@ -26,6 +27,6 @@ const start = async () => {
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
-}
+};
 
 start();

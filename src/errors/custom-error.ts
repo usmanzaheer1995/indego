@@ -1,7 +1,7 @@
-export abstract class CustomError extends Error {
+export default abstract class CustomError extends Error {
   abstract status_code: number;
 
-  constructor (message: string) {
+  constructor(message: string) {
     super(message);
   }
 
