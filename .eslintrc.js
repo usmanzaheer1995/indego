@@ -16,6 +16,8 @@ module.exports = {
     "@typescript-eslint/no-useless-constructor": "off",
     "class-methods-use-this": "off",
     "no-param-reassign": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-useless-catch": "off",
+    "@typescript-eslint/no-use-before-define": "off"
   }
 };

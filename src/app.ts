@@ -1,6 +1,9 @@
 import express, { urlencoded, json } from 'express';
 import 'express-async-errors';
 
+// TODO: enable this to test cron job
+// import './utils/schedular';
+
 import errorHandler from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import { requireToken } from './middlewares/require-token';

@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Indego Express API
+  description: Typescript Backend Challenge
+  version: 0.1.9
+license:
+  name: "MIT"
+  url: "https://spdx.org/licenses/MIT.html"
+contact:
+  name: "Usman Zaheer"
+  email: "usmanzaheer1995@gmail.com"
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development Server
+  - url: Server
+    description: Production server
+paths:
+  /store:
+    post:
+      summary: Stores data fetched from Indego API.
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
+
+components:
+  schemas:
+    Store:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            _id:
+              type: string
+            name:
+              type: string
+            totalDocks:
+              type: number
+            docksAvailable:
+              type: number
+            bikesAvailable:
+              type: number
+            classicBikesAvailable:
+              type: number
+            smartBikesAvailable:
+              type: number
+            electricBikesAvailable:
+              type: number
+            rewardBikesAvailable:
+              type: number
+            rewardDocksAvailable:
+              type: number
+            kioskStatus:
+              type: string
+            kioskPublicStatus:
+              type: string
+            kioskConnectionStatus:
+              type: string
+            kioskType:
+              type: number
+            kioskId:
+              type: number
+            addressStreet:
+              type: string
+            addressCity:
+              type: string
+            addressState:
+              type: string
+            addressZipCode:
+              type: string
+            closeTime:
+              type: string
+            eventEnd:
+              type: string
+            eventStart:
+              type: string
+            isEventBased:
+              type: boolean
+            isVirtual:
+              type: boolean
+            notes:
+              type: string
+            openTime:
+              type: string
+            publicText:
+              type: string
+            timeZone:
+              type: string
+            trikesAvailable:
+              type: number
+            latitude:
+              type: string
+            longitude:
+              type: string
+            bikes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Bike'
+    Bike:
+      type: object
+      properties:
+        dockNumber:
+          type: number
+        isElectric:
+          type: boolean
+        isAvailable:
+          type: boolean
+        battery:
+          type: boolean

@@ -1,17 +1,15 @@
 import { Router, Request, Response } from 'express';
-import { query, CustomValidator } from 'express-validator';
+import { param, query } from 'express-validator';
 
 import { validateRequest } from '../middlewares/validate-request';
+import { isValidDate } from '../utils/custom-validators';
+import { fetchWeatherData } from '../utils/fetch-weather-data';
+import { Station } from '../models/stations';
+import { NotFoundError } from '../errors/not-found-error';
+import { IStationAttrs } from '../interfaces/station.interface';
+import { IWeatherResponse } from '../interfaces/weather.interface';
 
 export const snapshotRouter = Router();
-
-const isValidDate: CustomValidator = (value) => {
-  const date = new Date(value);
-  if (date.toString() === 'Invalid Date') {
-    return false;
-  }
-  return true;
-};
 
 // @route   GET api/v1/snapshot?at=date
 // @desc    Get snapshot of all stations at a specified time
@@ -25,11 +23,37 @@ snapshotRouter.get(
       .withMessage('at must be valid date'),
   ],
   validateRequest,
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const { at } = req.query;
 
-    console.log('at: ', at);
-    return res.status(200).send({ message: 'Hello from snapshot Router' });
+    let data: IStationAttrs[];
+    let weatherData: IWeatherResponse | null = null;
+
+    try {
+      data = await Station.find({ createdAt: { $gte: new Date(at as string) } }).lean();
+
+      if (data?.length === 0) {
+        throw new NotFoundError('no stations found for the specified date');
+      }
+    } catch (err) {
+      throw err;
+    }
+
+    try {
+      weatherData = await fetchWeatherData(at as string);
+    } catch (err) {
+      if (err.code !== 400) {
+        throw err;
+      }
+      console.error(err.message);
+    }
+
+    return res.status(200).send({
+      message: 'Data fetched successfully',
+      at: data[0].createdAt,
+      stations: data,
+      weather: weatherData,
+    });
   },
 );
 
@@ -39,19 +63,49 @@ snapshotRouter.get(
 snapshotRouter.get(
   '/:kioskId',
   [
+    param('kioskId')
+      .isNumeric()
+      .withMessage('kioskId must be numeric'),
     query('at')
       .notEmpty()
       .custom(isValidDate)
-      .isDate(),
+      .withMessage('query param at must be valid date'),
   ],
   validateRequest,
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const { kioskId } = req.params;
     const { at } = req.query;
 
-    console.log('at: ', at);
-    console.log('kioskId: ', kioskId);
+    let data: IStationAttrs;
+    let weatherData: IWeatherResponse | null = null;
 
-    return res.status(200).send({ message: 'Hello from snapshot kioskId Router' });
+    try {
+      data = await Station.findOne({
+        kioskId: parseInt(kioskId, 10),
+        createdAt: { $gte: new Date(at as string) },
+      }).lean();
+
+      if (!data) {
+        throw new NotFoundError('no stations found for the specified kioskId and date');
+      }
+    } catch (err) {
+      throw err;
+    }
+
+    try {
+      weatherData = await fetchWeatherData(at as string);
+    } catch (err) {
+      if (err.code !== 400) {
+        throw err;
+      }
+      console.error(err.message);
+    }
+
+    return res.status(200).send({
+      message: 'Data fetched successfully',
+      at: data.createdAt,
+      station: data,
+      weather: weatherData,
+    });
   },
 );

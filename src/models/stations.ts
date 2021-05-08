@@ -9,7 +9,7 @@ import { IBikeAttrs } from '../interfaces/bike.interface';
 import { IStationAttrs } from '../interfaces/station.interface';
 
 interface IStationDoc extends Document {
-  id: string;
+  _id: string;
   name: string;
   totalDocks: number;
   docksAvailable: number;
@@ -23,7 +23,7 @@ interface IStationDoc extends Document {
   kioskPublicStatus: string;
   kioskConnectionStatus: string;
   kioskType: number;
-  kioskId: string;
+  kioskId: number;
   addressStreet: string;
   addressCity: string;
   addressState: string;
@@ -41,6 +41,7 @@ interface IStationDoc extends Document {
   latitude: string;
   longitude: string;
   bikes: IBikeAttrs[];
+  createdAt: Date;
 }
 
 interface IStationsModel extends Model<IStationDoc> {
@@ -61,7 +62,7 @@ const stationScheme = new Schema({
   kioskPublicStatus: { type: String },
   kioskConnectionStatus: { type: String },
   kioskType: { type: Number },
-  kioskId: { type: String, required: true },
+  kioskId: { type: Number, required: true },
   addressStreet: { type: String },
   addressCity: { type: String },
   addressState: { type: String },
@@ -84,23 +85,16 @@ const stationScheme = new Schema({
     isAvailable: { type: Boolean, default: true },
     battery: { type: String },
   }],
-}, {
-  timestamps: true,
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      ret._id = undefined;
-    },
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
-stationScheme.index({ createdAt: 1 });
+stationScheme.index({ createdAt: 1, kioskId: 1 });
 
-const Station = model<IStationDoc, IStationsModel>('Station', stationScheme);
-
+// eslint-disable-next-line @typescript-eslint/no-use-before-define
 stationScheme.statics.build = (attrs: IStationAttrs) => new Station({
-  _id: attrs.id,
   ...attrs,
 });
+
+const Station = model<IStationDoc, IStationsModel>('Station', stationScheme);
 
 export { Station };

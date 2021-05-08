@@ -1,7 +1,7 @@
 import { IBikeAttrs } from './bike.interface';
 
 export interface IStationAttrs {
-  id: string;
+  _id: string;
   name: string;
   totalDocks: number;
   docksAvailable: number;
@@ -15,7 +15,7 @@ export interface IStationAttrs {
   kioskPublicStatus: string;
   kioskConnectionStatus: string;
   kioskType: number;
-  kioskId: string;
+  kioskId: number;
   addressStreet: string;
   addressCity: string;
   addressState: string;
@@ -33,4 +33,5 @@ export interface IStationAttrs {
   latitude: string;
   longitude: string;
   bikes: IBikeAttrs[];
+  createdAt: Date;
 }

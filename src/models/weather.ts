@@ -28,23 +28,16 @@ const weatherScheme = new Schema({
   tempMax: { type: Number },
   pressure: { type: Number },
   humidity: { type: Number },
-}, {
-  timestamps: true,
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      ret._id = undefined;
-    },
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 weatherScheme.index({ createdAt: 1 });
-
-const Weather = model<IWeatherDoc, IWeatherModel>('Weather', weatherScheme);
 
 weatherScheme.statics.build = (attrs: IWeatherAttrs) => new Weather({
   _id: attrs.id,
   ...attrs,
 });
+
+const Weather = model<IWeatherDoc, IWeatherModel>('Weather', weatherScheme);
 
 export { Weather };
