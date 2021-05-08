@@ -1,12 +1,7 @@
 import axios from 'axios';
+import { PHILADELPHIA_COORDS, WEATHER_URL } from '../constants';
 
 import { IWeatherResponse } from '../interfaces/weather.interface';
-
-const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall/timemachine';
-const PHILADELPHIA_COORDS = {
-  latitude: 39.95378,
-  longitude: -75.16374,
-};
 
 export const fetchWeatherData = async (at: string): Promise<IWeatherResponse> => {
   const weatherParams = {

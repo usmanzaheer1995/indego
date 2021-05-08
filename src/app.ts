@@ -1,5 +1,6 @@
 import express, { urlencoded, json } from 'express';
 import 'express-async-errors';
+import cors from 'cors';
 
 // TODO: enable this to test cron job
 // import './utils/schedular';
@@ -12,6 +13,8 @@ import router from './routes/routes';
 const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
+
+app.use(cors());
 
 // TODO: enable this afterwards
 // app.use(requireToken);
