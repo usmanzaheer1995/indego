@@ -7,10 +7,6 @@ export class DatabaseConnectionError extends CustomError {
 
   constructor() {
     super('Error connecting to db');
-
-    // Only because we are extending a built in class and transpiling to 'es5'
-    // in tsconfig.json
-    Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
   }
 
   serializeErrors() {

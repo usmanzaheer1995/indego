@@ -11,9 +11,11 @@ module.exports = {
   rules: {
     "linebreak-style": "off",
     "import/no-extraneous-dependencies": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-useless-constructor": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off"
   }
 };
