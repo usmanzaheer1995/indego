@@ -13,7 +13,8 @@
     "postinstall": "npm run clean && tsc"
   },
   "engines": {
-    "node": "15.11.0"
+    "node": "15.11.0",
+    "npm": "7.6.0"
   },
   "dependencies": {
     "@typescript-eslint/parser": "4.22.1",
