@@ -10,10 +10,10 @@ contact:
   name: "Usman Zaheer"
   email: "usmanzaheer1995@gmail.com"
 servers:
+  - url: https://indego-api.herokuapp.com/api/v1
+    description: Production server
   - url: http://localhost:3000/api/v1
     description: Development Server
-  - url: Server
-    description: Production server
 paths:
   /snapshot/{kioskId}:
     get:
