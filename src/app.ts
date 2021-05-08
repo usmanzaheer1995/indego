@@ -14,7 +14,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 // TODO: enable this afterwards
-app.use(requireToken);
+// app.use(requireToken);
 
 app.use('/api/v1', router);
 

@@ -15,6 +15,81 @@ servers:
   - url: Server
     description: Production server
 paths:
+  /snapshot/{kioskId}:
+    get:
+      summary: Get snapshot of one station at a specific time
+      parameters:
+        - in: path
+          name: kioskId
+          schema:
+            type: integer
+          required: true
+          description: Kiosk ID of a station
+        - in: query
+          name: at
+          schema:
+            type: string
+          required: true
+          description: requested time for snapshot of data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      at:
+                        type: string
+                      station:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Station'
+                      weather:
+                        $ref: '#/components/schemas/Weather'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /snapshot:
+    get:
+      summary: Get snapshot of all stations at a specified time
+      parameters:
+        - in: query
+          name: at
+          schema:
+            type: string
+          required: true
+          description: requested time for snapshot of data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      at:
+                        type: string
+                      stations:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Station'
+                      weather:
+                        $ref: '#/components/schemas/Weather'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
   /store:
     post:
       summary: Stores data fetched from Indego API.
@@ -24,84 +99,96 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Store'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Station'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
 
 components:
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+  securitySchemes:
+    BearerAuth:       # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  security:
+    - BearerAuth: []  # use the same name as above, applied to the whole app
   schemas:
-    Store:
+    Station:
       type: object
       properties:
-        message:
+        _id:
           type: string
-        data:
-          type: object
-          properties:
-            _id:
-              type: string
-            name:
-              type: string
-            totalDocks:
-              type: number
-            docksAvailable:
-              type: number
-            bikesAvailable:
-              type: number
-            classicBikesAvailable:
-              type: number
-            smartBikesAvailable:
-              type: number
-            electricBikesAvailable:
-              type: number
-            rewardBikesAvailable:
-              type: number
-            rewardDocksAvailable:
-              type: number
-            kioskStatus:
-              type: string
-            kioskPublicStatus:
-              type: string
-            kioskConnectionStatus:
-              type: string
-            kioskType:
-              type: number
-            kioskId:
-              type: number
-            addressStreet:
-              type: string
-            addressCity:
-              type: string
-            addressState:
-              type: string
-            addressZipCode:
-              type: string
-            closeTime:
-              type: string
-            eventEnd:
-              type: string
-            eventStart:
-              type: string
-            isEventBased:
-              type: boolean
-            isVirtual:
-              type: boolean
-            notes:
-              type: string
-            openTime:
-              type: string
-            publicText:
-              type: string
-            timeZone:
-              type: string
-            trikesAvailable:
-              type: number
-            latitude:
-              type: string
-            longitude:
-              type: string
-            bikes:
-              type: array
-              items:
-                $ref: '#/components/schemas/Bike'
+        name:
+          type: string
+        totalDocks:
+          type: number
+        docksAvailable:
+          type: number
+        bikesAvailable:
+          type: number
+        classicBikesAvailable:
+          type: number
+        smartBikesAvailable:
+          type: number
+        electricBikesAvailable:
+          type: number
+        rewardBikesAvailable:
+          type: number
+        rewardDocksAvailable:
+          type: number
+        kioskStatus:
+          type: string
+        kioskPublicStatus:
+          type: string
+        kioskConnectionStatus:
+          type: string
+        kioskType:
+          type: number
+        kioskId:
+          type: number
+        addressStreet:
+          type: string
+        addressCity:
+          type: string
+        addressState:
+          type: string
+        addressZipCode:
+          type: string
+        closeTime:
+          type: string
+        eventEnd:
+          type: string
+        eventStart:
+          type: string
+        isEventBased:
+          type: boolean
+        isVirtual:
+          type: boolean
+        notes:
+          type: string
+        openTime:
+          type: string
+        publicText:
+          type: string
+        timeZone:
+          type: string
+        trikesAvailable:
+          type: number
+        latitude:
+          type: string
+        longitude:
+          type: string
+        bikes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bike'
     Bike:
       type: object
       properties:
@@ -113,3 +200,45 @@ components:
           type: boolean
         battery:
           type: boolean
+    Weather:
+      type: object
+      properties:
+        dt:
+          type: number
+        sunrise:
+          type: number
+        sunset:
+          type: number
+        temp:
+          type: number
+        feels_like:
+          type: number
+        pressure:
+          type: number
+        humidity:
+          type: number
+        dew_point:
+          type: number
+        uvi:
+          type: number
+        clouds:
+          type: number
+        visibility:
+          type: number
+        wind_speed:
+          type: number
+        wind_deg:
+          type: number
+        weather: 
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              main:
+                type: string
+              description:
+                type: string
+              icon:
+                type: string

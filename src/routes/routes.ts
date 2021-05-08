@@ -10,7 +10,7 @@ import { storeRouter } from './store';
 const router = Router();
 const swaggerDocument = YAML.load(join(__dirname, '..', 'swagger', 'swagger.yaml'));
 
-// TODO: add production server URL after deployment
+// TODO: add production server URL in swagger.yaml after deployment
 router.use(
   '/swagger',
   swaggerUi.serve,

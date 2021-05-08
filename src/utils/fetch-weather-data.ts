@@ -19,8 +19,8 @@ export const fetchWeatherData = async (at: string): Promise<IWeatherResponse> =>
   };
 
   try {
-    const resp = await axios.get<IWeatherResponse>(WEATHER_URL, weatherParams);
-    return resp.data;
+    const resp = await axios.get(WEATHER_URL, weatherParams);
+    return resp.data?.current;
   } catch (err) {
     throw err;
   }
