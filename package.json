@@ -7,9 +7,10 @@
   "scripts": {
     "clean": "del-cli ./dist/*",
     "build": "npm run clean && tsc",
-    "start": "tsc && node dist/index.js",
+    "start": "node dist/index.js",
     "start:dev": "tsnd --respawn src/index.ts",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@typescript-eslint/parser": "4.22.1",
