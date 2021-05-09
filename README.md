@@ -12,6 +12,7 @@
 1. The API is deployed on heroku.
 
 1. There are three main endpoints which can be viewed on swagger [here](https://indego-api.herokuapp.com/api/v1/swagger).
+    * **Note** - for endpoint `/snapshot`, swagger UI hangs if there is too much data
    
 1. Each endpoint is protected by a Bearer auth token which acts as an authentication layer
     * Set request header (or in the `Authorize` tab in swagger): `Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXNzYWdlIjoiZHVtbXkgc3RhdGljIHRva2VuIiwiaWF0IjoxNjIwNTQ1NjY0LCJleHAiOjE2MjMxMzc2NjR9.nxbpAbZ4kb5exQrK_ZhRl_qZlu600GJkDlZJvXftF14`
