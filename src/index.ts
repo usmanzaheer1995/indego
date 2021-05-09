@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 import { join } from 'path';
 import * as dotenv from 'dotenv';
 
-import app from './app';
-
 dotenv.config({ path: join(__dirname, '..', '.env') });
+
+// eslint-disable-next-line import/first
+import app from './app';
 
 const PORT = process.env.PORT || 3000;
 

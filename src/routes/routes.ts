@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { join } from 'path';
 
+import { requireToken } from '../middlewares/require-token';
 import { snapshotRouter } from './snapshot';
 import { storeRouter } from './store';
 
@@ -10,13 +11,12 @@ import { storeRouter } from './store';
 const router = Router();
 const swaggerDocument = YAML.load(join(__dirname, '..', 'swagger', 'swagger.yaml'));
 
-// TODO: add production server URL in swagger.yaml after deployment
 router.use(
   '/swagger',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument),
 );
-router.use('/snapshot', snapshotRouter);
-router.use('/store', storeRouter);
+router.use('/snapshot', requireToken, snapshotRouter);
+router.use('/store', requireToken, storeRouter);
 
 export default router;
