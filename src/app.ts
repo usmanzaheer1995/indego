@@ -3,7 +3,7 @@ import 'express-async-errors';
 import cors from 'cors';
 
 // TODO: enable this to test cron job
-import './utils/schedular';
+// import './utils/schedular';
 
 import errorHandler from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
