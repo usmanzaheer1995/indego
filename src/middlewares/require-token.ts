@@ -18,10 +18,7 @@ export const requireToken = (
   try {
     const payload = verify(token, process.env.JWT_KEY!);
   } catch (error) {
-    if (error.message === 'invalid signature') {
-      throw new NotAuthorizedError();
-    }
-    throw new Error('Something went wrong');
+    throw new NotAuthorizedError();
   }
 
   return next();
