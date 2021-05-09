@@ -15,7 +15,8 @@
     * **Note** - for endpoint `/snapshot`, swagger UI hangs if there is too much data
    
 1. Each endpoint is protected by a Bearer auth token which acts as an authentication layer
-    * Set request header (or in the `Authorize` tab in swagger, just add the token): `Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXNzYWdlIjoiZHVtbXkgc3RhdGljIHRva2VuIiwiaWF0IjoxNjIwNTQ1NjY0LCJleHAiOjE2MjMxMzc2NjR9.nxbpAbZ4kb5exQrK_ZhRl_qZlu600GJkDlZJvXftF14`
+    * Set request header (or in the `Authorize` tab in swagger, just add the token):
+      * `Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXNzYWdlIjoiZHVtbXkgc3RhdGljIHRva2VuIiwiaWF0IjoxNjIwNTQ1NjY0LCJleHAiOjE2MjMxMzc2NjR9.nxbpAbZ4kb5exQrK_ZhRl_qZlu600GJkDlZJvXftF14`
     * **Note** - This token is valid for 30 days
     
 ### Cron job
