@@ -10,6 +10,7 @@ export default async (at: string): Promise<IWeatherResponse> => {
       lon: PHILADELPHIA_COORDS.longitude,
       appid: process.env.WEATHER_API_KEY,
       dt: new Date(at).valueOf() / 1000,
+      units: 'metric',
     },
   };
 
