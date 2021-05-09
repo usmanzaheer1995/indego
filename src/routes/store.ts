@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-import { fetchIndegoData } from '../utils/fetch-indigo-data';
+import fetchIndegoData from '../utils/fetch-indigo-data';
 
 export const storeRouter = Router();
 

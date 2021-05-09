@@ -3,7 +3,7 @@ import { param, query } from 'express-validator';
 
 import { validateRequest } from '../middlewares/validate-request';
 import { isValidDate } from '../utils/custom-validators';
-import { fetchWeatherData } from '../utils/fetch-weather-data';
+import fetchWeatherData from '../utils/fetch-weather-data';
 import { Station } from '../models/stations';
 import { NotFoundError } from '../errors/not-found-error';
 import { IStationAttrs } from '../interfaces/station.interface';

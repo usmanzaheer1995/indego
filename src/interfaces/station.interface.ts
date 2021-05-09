@@ -28,7 +28,7 @@ export interface IStationAttrs {
   notes?: string;
   openTime?: string;
   publicText: string;
-  timeZone: string;
+  timeZone?: string;
   trikesAvailable: number;
   latitude: string;
   longitude: string;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { INDEGO_API_URL } from '../constants';
 import { Station } from '../models/stations';
 
-export const fetchIndegoData = async () => {
+export default async () => {
   try {
     const stations = await axios.get<{ features: any[], type: string }>(INDEGO_API_URL);
     const { features } = stations.data;

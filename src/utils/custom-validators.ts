@@ -1,4 +1,4 @@
-import { query, CustomValidator } from 'express-validator';
+import { CustomValidator } from 'express-validator';
 
 export const isValidDate: CustomValidator = (value) => {
   const date = new Date(value);

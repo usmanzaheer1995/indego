@@ -3,7 +3,7 @@ import { PHILADELPHIA_COORDS, WEATHER_URL } from '../constants';
 
 import { IWeatherResponse } from '../interfaces/weather.interface';
 
-export const fetchWeatherData = async (at: string): Promise<IWeatherResponse> => {
+export default async (at: string): Promise<IWeatherResponse> => {
   const weatherParams = {
     params: {
       lat: PHILADELPHIA_COORDS.latitude,
