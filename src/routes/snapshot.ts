@@ -40,9 +40,9 @@ snapshotRouter.get(
     }
 
     try {
-      weatherData = await fetchWeatherData(at as string);
+      weatherData = await fetchWeatherData(new Date(at as string).toString());
     } catch (err) {
-      if (err.code !== 400) {
+      if (err.response.status !== 400) {
         throw err;
       }
       console.error(err.message);
