@@ -2,6 +2,7 @@
 
 - Built with Node.js version 15.11.0
 - Built upon the [Express](https://expressjs.com/) framework
+- Uses Mongodb for data persistence and Mongoose as the ODM 
 - Uses The Indego GeoJSON station status API
 - Uses the Open Weather Map API
 - Uses a static JWT token for authentication
